@@ -100,21 +100,21 @@ CREATE TABLE Student (
     Name VARCHAR(50),
     Email VARCHAR(100)
 );
-Step 7: Database Implementation
-সব টেবিল তৈরি
 
-Constraint সেট
+```
+### Step 7: Database Implementation
+    1.সব টেবিল তৈরি
+    2.Constraint সেট
+    3.Sample data insert
 
-Sample data insert
-
-Step 8: Testing & Validation
+### Step 8: Testing & Validation
     1.Duplicate PK check
     2.FK violation check
 
-Step 9: Deployment
+### Step 9: Deployment
     1.Production server
     2.App connection
 
-Step 10: Maintenance & Optimization
+### Step 10: Maintenance & Optimization
     1.Backup
     2.Performance tuning
