@@ -1,4 +1,3 @@
-```md
 ## SDLC অনুযায়ী Database Design Process (ধাপে ধাপে)
 
 বাস্তব জীবনে কোনো প্রজেক্ট এলে আমরা সরাসরি টেবিল বানানো শুরু করি না।  
@@ -71,147 +70,51 @@ University Project এ ক্লায়েন্ট বললো:
 
 ## Step 4: Logical Database Design (Schema Design)
 
-### এই ধাপে কী করি?
-- ER Diagram কে Relational Schema তে রূপান্তর করি  
-- Table structure বানাই  
-- Data type নির্ধারণ করি  
-
 ### বাস্তব উদাহরণ
-```
-
 Student(StudentID, Name, Email, Dept)
 Course(CourseID, CourseName, Credit)
 Enrollment(StudentID, CourseID)
 
-```
-
-### Output
-- Table Schema  
-- Primary Key ও Foreign Key নির্ধারণ  
 
 ---
 
 ## Step 5: Normalization (ডেটা অপটিমাইজেশন)
 
-### এই ধাপে কী করি?
-- Redundancy কমাই  
-- Data inconsistency দূর করি  
-
-### বাস্তব উদাহরণ
-
 আগে:
-```
-
 StudentID, Name, CourseName, TeacherName
 
-```
 
 Normalization করার পরে:
-```
-
 Student(StudentID, Name)
 Course(CourseID, CourseName)
 Teacher(TeacherID, Name)
 
-````
-
-### Output
-- Normalized Tables (3NF পর্যন্ত)
 
 ---
 
 ## Step 6: Physical Database Design
 
-### এই ধাপে কী করি?
-- বাস্তবে DBMS–এ টেবিল তৈরি করি  
-- Index, Constraint যোগ করি  
-
-### বাস্তব উদাহরণ
 ```sql
 CREATE TABLE Student (
     StudentID INT PRIMARY KEY,
     Name VARCHAR(50),
     Email VARCHAR(100)
 );
-````
+Step 7: Database Implementation
+সব টেবিল তৈরি
 
-### Output
+Constraint সেট
 
-* Physical Database Structure
+Sample data insert
 
----
+Step 8: Testing & Validation
+    1.Duplicate PK check
+    2.FK violation check
 
-## Step 7: Database Implementation
+Step 9: Deployment
+    1.Production server
+    2.App connection
 
-### এই ধাপে কী করি?
-
-* সব টেবিল তৈরি করি
-* Foreign Key, Constraint সেট করি
-* Sample data insert করি
-
-### Output
-
-* Working Database
-* Initial Data
-
----
-
-## Step 8: Testing & Validation
-
-### এই ধাপে কী করি?
-
-* ডেটা ঠিকভাবে insert হচ্ছে কিনা দেখি
-* Invalid data reject হচ্ছে কিনা পরীক্ষা করি
-
-### বাস্তব উদাহরণ
-
-* Duplicate Primary Key insert করলে error আসছে কিনা
-* Foreign Key violation হচ্ছে কিনা
-
-### Output
-
-* Error-free Database
-
----
-
-## Step 9: Deployment
-
-### এই ধাপে কী করি?
-
-* Production server এ Database deploy করি
-* Application এর সাথে connect করি
-
-### Output
-
-* Live Database System
-
----
-
-## Step 10: Maintenance & Optimization
-
-### এই ধাপে কী করি?
-
-* Backup নিই
-* Performance optimize করি
-* নতুন requirement এ table update করি
-
-### বাস্তব উদাহরণ
-
-* নতুন Course add
-* Index add করে query fast করা
-
-### Output
-
-* Stable & Optimized Database
-
----
-
-## সংক্ষেপে বললে
-
-> **Database Design একটি ধাপে ধাপে প্রক্রিয়া, যেখানে Requirement বোঝা থেকে শুরু করে Maintenance পর্যন্ত প্রতিটি ধাপ গুরুত্বপূর্ণ।**
-
-```
-
----
-
-```
+Step 10: Maintenance & Optimization
+    1.Backup
+    2.Performance tuning
