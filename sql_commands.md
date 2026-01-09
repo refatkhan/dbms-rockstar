@@ -297,3 +297,390 @@ ROLLBACK;
 ---
 
 
+একদম ঠিক বলছো 👍
+শুধু command দিলে শেখা **অসম্পূর্ণ** থাকে —
+👉 **output কী আসবে**
+👉 **কেন আসবে**
+👉 **logic টা কীভাবে কাজ করছে**
+এই তিনটা একসাথে না থাকলে DBMS clear হয় না।
+
+নিচে আমি **একই SELECT topic গুলোই** আবার দিলাম, কিন্তু এবার
+✅ **sample table**
+✅ **query**
+✅ **expected output (table আকারে)**
+✅ **কেন এই output আসছে—clear explanation**
+সবকিছু **একটা Markdown file-এর ভেতরেই**।
+
+---
+
+````md
+# SQL SELECT Basics — Query + Output + Explanation (Complete Notes)
+
+---
+
+## Sample Table (সব উদাহরণের জন্য)
+
+ধরি আমাদের টেবিলটি এমন:
+
+### students table
+
+| id | name   | dept | age |
+|----|--------|------|-----|
+| 1  | Rahim  | CSE  | 22  |
+| 2  | Karim  | EEE  | 20  |
+| 3  | Salma  | CSE  | 24  |
+| 4  | Anika  | BBA  | 21  |
+| 5  | Arif   | EEE  | 23  |
+
+---
+
+## 18-3 SELECT Basics: Sorting & Aliases
+
+### 🔹 ORDER BY (Sorting)
+
+### Query
+```sql
+SELECT * FROM students
+ORDER BY age ASC;
+````
+
+### Output
+
+| id | name  | dept | age |
+| -- | ----- | ---- | --- |
+| 2  | Karim | EEE  | 20  |
+| 4  | Anika | BBA  | 21  |
+| 1  | Rahim | CSE  | 22  |
+| 5  | Arif  | EEE  | 23  |
+| 3  | Salma | CSE  | 24  |
+
+### কেন এমন output?
+
+* `ORDER BY age ASC` → বয়স অনুযায়ী **ছোট থেকে বড়**
+* Default order হলো `ASC`
+
+---
+
+### 🔹 Aliases (AS)
+
+### Query
+
+```sql
+SELECT name AS student_name, age AS student_age
+FROM students;
+```
+
+### Output
+
+| student_name | student_age |
+| ------------ | ----------- |
+| Rahim        | 22          |
+| Karim        | 20          |
+| Salma        | 24          |
+| Anika        | 21          |
+| Arif         | 23          |
+
+### কেন এমন output?
+
+* `AS` শুধু **column নাম বদলায়**
+* ডেটা বদলায় না
+* Output readable করার জন্য ব্যবহার হয়
+
+---
+
+## 18-4 DISTINCT & WHERE Filtering
+
+### 🔹 DISTINCT
+
+### Query
+
+```sql
+SELECT DISTINCT dept
+FROM students;
+```
+
+### Output
+
+| dept |
+| ---- |
+| CSE  |
+| EEE  |
+| BBA  |
+
+### কেন এমন output?
+
+* `dept` কলামে duplicate ছিল
+* DISTINCT শুধু **unique value** দেখিয়েছে
+
+---
+
+### 🔹 WHERE Filtering
+
+### Query
+
+```sql
+SELECT * FROM students
+WHERE dept = 'CSE';
+```
+
+### Output
+
+| id | name  | dept | age |
+| -- | ----- | ---- | --- |
+| 1  | Rahim | CSE  | 22  |
+| 3  | Salma | CSE  | 24  |
+
+### কেন এমন output?
+
+* WHERE condition শুধু `dept = 'CSE'` match করা row দেখায়
+* অন্য dept বাদ পড়ে
+
+---
+
+## 18-5 Filtering with AND & OR
+
+### 🔹 AND
+
+### Query
+
+```sql
+SELECT * FROM students
+WHERE dept = 'CSE' AND age > 22;
+```
+
+### Output
+
+| id | name  | dept | age |
+| -- | ----- | ---- | --- |
+| 3  | Salma | CSE  | 24  |
+
+### কেন এমন output?
+
+* `dept = 'CSE'` ✔
+* `age > 22` ✔
+* দুইটা শর্তই true হতে হবে
+
+---
+
+### 🔹 OR
+
+### Query
+
+```sql
+SELECT * FROM students
+WHERE dept = 'CSE' OR dept = 'EEE';
+```
+
+### Output
+
+| id | name  | dept | age |
+| -- | ----- | ---- | --- |
+| 1  | Rahim | CSE  | 22  |
+| 2  | Karim | EEE  | 20  |
+| 3  | Salma | CSE  | 24  |
+| 5  | Arif  | EEE  | 23  |
+
+### কেন এমন output?
+
+* যেকোনো একটাও true হলেই row select হয়
+* BBA বাদ পড়ে
+
+---
+
+## 18-6 Comparison, BETWEEN & IN
+
+### 🔹 Comparison Operator
+
+### Query
+
+```sql
+SELECT * FROM students
+WHERE age >= 23;
+```
+
+### Output
+
+| id | name  | age |
+| -- | ----- | --- |
+| 3  | Salma | 24  |
+| 5  | Arif  | 23  |
+
+### কেন?
+
+* `>= 23` condition match করছে শুধু এই দুইজন
+
+---
+
+### 🔹 BETWEEN
+
+### Query
+
+```sql
+SELECT * FROM students
+WHERE age BETWEEN 21 AND 23;
+```
+
+### Output
+
+| id | name  | age |
+| -- | ----- | --- |
+| 1  | Rahim | 22  |
+| 4  | Anika | 21  |
+| 5  | Arif  | 23  |
+
+### কেন?
+
+* BETWEEN **inclusive**
+* 21 এবং 23 দুইটাই ধরা হয়
+
+---
+
+### 🔹 IN
+
+### Query
+
+```sql
+SELECT * FROM students
+WHERE dept IN ('CSE', 'EEE');
+```
+
+### Output
+
+| id | name  | dept |
+| -- | ----- | ---- |
+| 1  | Rahim | CSE  |
+| 2  | Karim | EEE  |
+| 3  | Salma | CSE  |
+| 5  | Arif  | EEE  |
+
+### কেন?
+
+* IN মানে multiple OR
+* Cleaner & readable
+
+---
+
+## 18-7 LIKE vs ILIKE
+
+### 🔹 LIKE (Case-sensitive)
+
+### Query
+
+```sql
+SELECT * FROM students
+WHERE name LIKE 'A%';
+```
+
+### Output
+
+| id | name  |
+| -- | ----- |
+| 4  | Anika |
+| 5  | Arif  |
+
+### কেন?
+
+* `A%` → A দিয়ে শুরু
+* `%` মানে যেকোনো character
+
+---
+
+### 🔹 ILIKE (PostgreSQL)
+
+### Query
+
+```sql
+SELECT * FROM students
+WHERE name ILIKE 'a%';
+```
+
+### Output
+
+| id | name  |
+| -- | ----- |
+| 4  | Anika |
+| 5  | Arif  |
+
+### কেন?
+
+* Case-insensitive
+* `a%` ও `A%` একইভাবে কাজ করে
+
+---
+
+## 18-8 NOT & Scalar Functions
+
+### 🔹 NOT
+
+### Query
+
+```sql
+SELECT * FROM students
+WHERE NOT dept = 'CSE';
+```
+
+### Output
+
+| name  | dept |
+| ----- | ---- |
+| Karim | EEE  |
+| Anika | BBA  |
+| Arif  | EEE  |
+
+### কেন?
+
+* CSE বাদ দিয়ে বাকিগুলো দেখায়
+
+---
+
+### 🔹 Scalar Function (UPPER)
+
+### Query
+
+```sql
+SELECT UPPER(name) FROM students;
+```
+
+### Output
+
+| upper |
+| ----- |
+| RAHIM |
+| KARIM |
+| SALMA |
+| ANIKA |
+| ARIF  |
+
+### কেন?
+
+* Scalar function row-by-row কাজ করে
+
+---
+
+## 18-9 Aggregate Functions Explained
+
+### 🔹 COUNT
+
+```sql
+SELECT COUNT(*) FROM students;
+```
+
+**Output:** `5`
+
+👉 মোট row সংখ্যা
+
+---
+
+### 🔹 AVG
+
+```sql
+SELECT AVG(age) FROM students;
+```
+
+**Output:** `22`
+
+👉 গড় বয়স
+
+---
+
+
