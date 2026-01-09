@@ -4,9 +4,6 @@
 ````md
 # PostgreSQL Basic Commands — Step by Step (Beginner to Practical)
 
-এই নোটে দেখানো হয়েছে, বাস্তবে একটি প্রজেক্ট শুরু করলে  
-PostgreSQL–এ **ধাপে ধাপে কীভাবে কাজ করা হয়**।
-
 ---
 
 ## Step 1️⃣ PostgreSQL-এ ঢোকা (psql)
